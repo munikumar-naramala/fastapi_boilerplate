@@ -1,42 +1,22 @@
-from typing import Optional
-
 from pydantic import BaseModel, EmailStr
 
-
-# Shared Properties
-class UserBase(BaseModel):
-    user_name: str
+class InternCreate(BaseModel):
+    name: str
+    empid: str
+    email: EmailStr
     password: str
-    email: Optional[EmailStr] = None
-    mobile: Optional[str] = None
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    user_role_id: int
+    phone: str
+    position: str
 
-
-# Properties to receive via API on creation
-class UserCreate(UserBase):
+class InternLogin(BaseModel):
     email: EmailStr
     password: str
 
+class Interntask(BaseModel):
+    task_id: str
+    task_status: str
 
-# Properties to receive via API on update
-class UserUpdate(UserBase):
-    password: Optional[str] = None
-
-
-class UserInDBBase(UserBase):
-    id: Optional[int] = None
-
-    class Config:
-        orm_mode = True
+class InternTaskStatusUpdate(BaseModel):
+    task_status: str
 
 
-# Additional properties to return via API
-class User(UserInDBBase):
-    pass
-
-
-# Additional properties stored in DB
-class UserInDB(UserInDBBase):
-    passwordd: str

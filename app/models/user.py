@@ -1,22 +1,19 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey,  LargeBinary
+from sqlalchemy.orm import relationship
 from app.db.base import Base
-from app.models.user_role import UserRole
 
+class Intern(Base):
+    __tablename__ = 'interns'
 
-class User(Base):
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    user_name = Column(String(128), unique=True, primary_key=True)
-    email = Column(String(128), unique=True, primary_key=True)
-    password = Column(String(256))
-    mobile = Column(String(15), unique=True, primary_key=True)
-    first_name = Column(String(64), index=True)
-    last_name = Column(String(64), index=True)
-    user_role_id = Column(Integer, ForeignKey(UserRole.id))
-    is_email_verified = Column(Boolean, default=False)
-    is_mobile_verified = Column(Boolean, default=False)
-    is_active = Column(Boolean, default=False)
-    is_logged_in = Column(Boolean, default=False)
-    created_on = Column(DateTime, nullable=False)
-    updated_on = Column(DateTime, nullable=True)
-    is_deleted = Column(Boolean, default=False, nullable=False)
-    deleted_on = Column(DateTime, nullable=True)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(128))
+    empid = Column(String(128), unique=True)
+    email = Column(String(128), unique=True)
+    password = Column(String(128))
+    phone = Column(String(128))
+    position = Column(String(128))
+    task_id = Column(String(128), ForeignKey('task.task_id'))
+    task_status = Column(String(128))
+    #document_submission = Column(LargeBinary)
+
+    task = relationship("Task")

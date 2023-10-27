@@ -8,3 +8,7 @@ python-logstash-async==2.2.0
 sqlalchemy==1.3.22
 uvicorn==0.13.3
 wincertstore==0.2
+pydantic
+jose
+mysql
+dotenv
